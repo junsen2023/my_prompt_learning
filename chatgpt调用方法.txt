@@ -1,0 +1,18 @@
+import openai#导入openai库
+#最重要的是去openai官网申请自己的api，才能调用chatgpt
+openai.api_key = "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"
+# 一个封装 OpenAI 接口的函数，参数为 Prompt，返回对应结果
+def get_completion(prompt, model="gpt-3.5-turbo"):
+    '''
+    prompt: 对应的提示
+    model: 调用的模型，默认为 gpt-3.5-turbo(ChatGPT)，有内测资格的用户可以选择 gpt-4
+    '''
+    messages = [{"role": "user", "content": prompt}]
+    response = openai.ChatCompletion.create(
+        model=model,
+        messages=messages,
+        temperature=0, # 模型输出的温度系数，控制输出的随机程度
+    )
+    # 调用 OpenAI 的 ChatCompletion 接口
+    return response.choices[0].message["content"]
+使用方法：直接编写自己的prompt，然后调用函数，输出结果
